@@ -1,0 +1,6 @@
+@mssqlWithDocker_HostAddress = http://localhost:5093
+
+GET {{mssqlWithDocker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
