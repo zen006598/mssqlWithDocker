@@ -1,6 +1,10 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using mssqlWithDocker.Data;
+using mssqlWithDocker.Repository;
+using mssqlWithDocker.Repository.Interface;
+using mssqlWithDocker.Service;
+using mssqlWithDocker.Service.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -14,6 +18,10 @@ var conStrBuilder = new SqlConnectionStringBuilder(builder.Configuration.GetConn
 var mssqlConnection = conStrBuilder.ConnectionString;
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(mssqlConnection));
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
